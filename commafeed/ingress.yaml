@@ -5,7 +5,7 @@ metadata:
   namespace: commafeed
 spec:
   rules:
-  - host: commafeed.example.com
+  - host: commafeed.tuunikala.home
     http:
       paths:
       - path: /
