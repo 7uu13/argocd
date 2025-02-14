@@ -7,14 +7,18 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: v69.2.4
-    helm:
-      version: v3
-      valuesFiles:
-        - promegraf/values.yaml
+  sources:
+    - chart: kube-prometheus-stack
+      repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: v69.2.4
+      helm:
+        version: v3
+        valueFiles:
+          - promegraf/values.yaml
+    # - repoUrl: https://github.com/7uu13/argocd.git
+    #   targetRevision: HEAD
+    #   ref: values
+    #   path: promegraf
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
