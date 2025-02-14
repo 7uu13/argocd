@@ -1,19 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx2
+  name: promegraf
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/7uu13/argocd.git
-    targetRevision: HEAD
-    path: nginx2
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: v69.2.4
+    helm:
+      version: v3
+      valuesFiles:
+        - promegraf/values.yaml
   destination:
-    name: ""
-    namespace: nginx2
+    namespace: monitoring
     server: https://kubernetes.default.svc
   syncPolicy:
     automated:
