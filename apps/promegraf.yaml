@@ -13,7 +13,8 @@ spec:
     targetRevision: v69.2.4
     helm:
       version: v3
-      valuesFile: "promegraf/values.yaml"
+      valuesFiles:
+        - promegraf/values.yaml
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
