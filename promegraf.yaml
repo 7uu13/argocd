@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: promegraf
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - chart: kube-prometheus-stack
+      repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: v69.2.4
+      helm:
+        version: v3
+        valueFiles:
+          - $values/promegraf/values.yaml
+    - repoURL: https://github.com/7uu13/argocd.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true

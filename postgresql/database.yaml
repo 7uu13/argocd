@@ -1,0 +1,31 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: linkding-prod
+  namespace: linkding
+spec:
+  instances: 3
+  superuserSecret:
+    name: root
+
+  bootstrap:
+    initdb:
+      database: test
+      owner: johan
+      secret:
+        name: root
+
+  storage:
+    size: 1Gi
+  backup:
+    retentionPolicy: "10d"
+    barmanObjectStore:
+      destinationPath: s3://postgresql
+      endpointURL: http://192.168.1.144:9002
+      s3Credentials:
+        accessKeyId:
+          name: cnpg
+          key: MINIO_ACCESS_KEY
+        secretAccessKey:
+          name: cnpg
+          key: MINIO_SECRET_KEY
