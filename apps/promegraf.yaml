@@ -14,11 +14,11 @@ spec:
       helm:
         version: v3
         valueFiles:
-          - promegraf/values.yaml
-    # - repoUrl: https://github.com/7uu13/argocd.git
-    #   targetRevision: HEAD
-    #   ref: values
-    #   path: promegraf
+          - $values/promegraf/values.yaml
+    - repoUrl: https://github.com/7uu13/argocd.git
+      targetRevision: HEAD
+      ref: values
+      # path: promegraf
   destination:
     namespace: monitoring
     server: https://kubernetes.default.svc
