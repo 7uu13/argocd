@@ -15,9 +15,9 @@ spec:
       version: v3
       valueFiles:                                                                                                   
         - $values/longhorn/values.yaml                                                                             
-    - repoURL: https://github.com/7uu13/argocd.git                                                                    
-      targetRevision: HEAD                                                                                            
-      ref: values
+  - repoURL: https://github.com/7uu13/argocd.git                                                                    
+    targetRevision: HEAD                                                                                            
+    ref: values
   destination:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
