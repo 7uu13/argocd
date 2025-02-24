@@ -12,8 +12,9 @@ spec:
     repoURL: https://charts.longhorn.io/
     targetRevision: v1.8.0
     helm:
-      version: v3
       values: |
+        preUpgradeChecker:
+          jobEnabled: false
         ingress:
           enabled: true
           annotations:
@@ -22,8 +23,6 @@ spec:
             - host: longhorn.example.com
               paths: 
                 - /
-        preUpgradeChecker:
-          jobEnabled: false
   destination:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
