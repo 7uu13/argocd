@@ -13,17 +13,17 @@ spec:
     targetRevision: v1.8.0
     helm:
       version: v3
-        values: |
-          ingress:
-            enabled: true
-            annotations:
-              nginx.ingress.kubernetes.io/rewrite-target: /
-            hosts:
-              - host: longhorn.example.com
-                paths: 
-		  - /
-          preUpgradeChecker:
-            jobEnabled: false
+      values: |
+        ingress:
+          enabled: true
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /
+          hosts:
+            - host: longhorn.example.com
+              paths: 
+                - /
+        preUpgradeChecker:
+          jobEnabled: false
   destination:
     namespace: longhorn-system
     server: https://kubernetes.default.svc
