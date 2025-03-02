@@ -21,7 +21,7 @@ spec:
               containerPort: 8082
           env:
             - name: QUARKUS_DATASOURCE_JDBC_URL
-              value: jdbc:postgresql://commafeed-rw.commafeed.svc.cluster.local:5432/commafeed
+              value: jdbc:postgresql://commafeed-prod-cnpg-v1-rw.commafeed.svc.cluster.local:5432/commafeed
             - name: QUARKUS_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
