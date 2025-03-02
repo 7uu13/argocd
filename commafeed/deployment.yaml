@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: commafeed
+  name: commafeed-prod-v1
   namespace: commafeed
 spec:
   replicas: 1
@@ -15,10 +15,23 @@ spec:
     spec:
       containers:
         - name: commafeed
-          image: athou/commafeed:latest-h2
+          image: athou/commafeed:latest-postgresql
           ports:
             - name: web
               containerPort: 8082
+          env:
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              value: jdbc:postgresql://commafeed-rw.commafeed.svc.cluster.local:5432/commafeed
+            - name: QUARKUS_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: commafeed-creds
+                  key: QUARKUS_DATASOURCE_USERNAME
+            - name: QUARKUS_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: commafeed-creds
+                  key: QUARKUS_DATASOURCE_PASSWORD
           resources:
             requests:
               memory: "128Mi"

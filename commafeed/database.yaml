@@ -1,0 +1,46 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: commafeed-prod-cnpg-v1
+  namespace: commafeed
+spec:
+  instances: 1
+  superuserSecret:
+    name: root
+
+  bootstrap:
+    initdb:
+      database: commafeed
+      owner: commafeed
+      secret:
+        name: commafeed
+        
+  storage: 
+    size: 1Gi
+
+  resources:
+    requests:
+      memory: 600Mi
+
+  managed:
+    services:
+      disabledDefaultServices:
+        - ro
+        - r
+
+  backup:
+    retentionPolicy: 7d
+    barmanObjectStore:
+      destinationPath: s3://cnpg
+      endpointURL: http://192.168.1.144:9000
+      wal:
+        compression: bzip2
+      data:
+        compression: bzip2
+      s3Credentials:
+        accessKeyId:
+          name: commafeed-creds
+          key: MINIO_ACCESS_KEY
+        secretAccessKey:
+          name: commafeed-creds
+          key: MINIO_SECRET_KEY
