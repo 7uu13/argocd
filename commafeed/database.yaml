@@ -16,7 +16,7 @@ spec:
         name: commafeed
         
   storage: 
-    size: 1Gi
+    size: 2Gi
 
   resources:
     requests:
